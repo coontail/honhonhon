@@ -5,7 +5,7 @@
 #  created_at        :datetime
 #  following_word_id :integer
 #  id                :integer          not null, primary key
-#  occurence_counter :integer
+#  occurence_counter :integer          default(0)
 #  preceding_word_id :integer
 #  updated_at        :datetime
 #

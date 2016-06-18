@@ -6,7 +6,7 @@ gem 'sqlite3'
 
 # App requirements
 gem 'nokogiri'
-gem 'apion'
+gem 'voxbi', git: "git@github.com:Galaad-Gauthier/VoxBi.git"
 
 group :development do
 	gem 'byebug'
