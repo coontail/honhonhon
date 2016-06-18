@@ -28,11 +28,13 @@ module WebsiteReadable
 
 	def create_word_relation_with_counter(word, following_word)
 		Word.transaction do
+      
 	  	word.following_word_relations.find_or_create_by(
 	  		following_word: following_word
 	  	).tap do |relation|
 	  		relation.update(occurence_counter: relation.occurence_counter + 1)
 	  	end
+
 	  end
 	end
 
