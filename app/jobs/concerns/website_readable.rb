@@ -10,12 +10,12 @@ module WebsiteReadable
 			word = Word.find_or_create_by(value: word)
 			following_word = Word.find_or_create_by(value: following_word)
 
-			create_word_relation_with_counter(word, following_word)
+			create_word_relation(word, following_word)
 		end
 	end
-
+  
 	def extract_text_from(link)
-		parse(link).css("p").text
+		parse(link).css("p").try(:text).to_s
 	end
 
 	def parse(link)
@@ -26,16 +26,15 @@ module WebsiteReadable
 		CGI.unescapeHTML(text).gsub(/[^\-\'\s\p{Alnum}]/,' ').squeeze(' ')
 	end
 
-	def create_word_relation_with_counter(word, following_word)
+	def create_word_relation(word, following_word)
 		Word.transaction do
-      
-	  	word.following_word_relations.find_or_create_by(
-	  		following_word: following_word
-	  	).tap do |relation|
-	  		relation.update(occurence_counter: relation.occurence_counter + 1)
-	  	end
-
+	  	relation = word.following_word_relations.find_or_create_by(following_word: following_word)
+	  	update_relation_counter(relation)
 	  end
 	end
+
+  def update_relation_counter(relation)
+    relation.update(occurence_counter: relation.occurence_counter + 1)
+  end
 
 end

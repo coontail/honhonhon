@@ -12,9 +12,28 @@
 
 class WordRelation < ActiveRecord::Base
 
+  ### Model settings ###
+
 	self.table_name = "words_relations"
+  
+  ### Modules ###
+
+  ### Associations ###
 
 	belongs_to :preceding_word, class_name: "Word"
 	belongs_to :following_word, class_name: "Word"
+
+  ### Callbacks ###
+
+  ### Scopes ###
+
+  ### Class macros ###
+
+  ### Misc macros ###
+
+  ### Class methods ###
+
+  ### Instance methods ###
+
 
 end

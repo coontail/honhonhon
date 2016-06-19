@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 # General
 gem 'rails', '4.2.6'
-gem 'sqlite3'
+gem 'pg'
 
 # App requirements
 gem 'nokogiri'

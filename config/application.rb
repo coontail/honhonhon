@@ -12,6 +12,8 @@ module Drunkmoliere
 
     config.autoload_paths += %W(
     	#{config.root}/app/jobs/concerns
+      #{config.root}/lib/extensions
+      #{config.root}/lib/errors
     )
 
   end
