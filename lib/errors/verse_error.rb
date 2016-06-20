@@ -1,8 +1,8 @@
 module VerseError
 
-  class NoRhymesError < StandardError
+  class FeetCountError < StandardError
 
-    def initialize(message = "No more rhymes are available !")
+    def initialize(message = "Could not get the desired feet number!")
       super(message)
     end
 

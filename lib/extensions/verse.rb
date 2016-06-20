@@ -16,7 +16,7 @@ class Verse
     until @counter == 0 do
       word = last_word.preceding_words.where("syllables_count <= ?", @counter).sample
       
-      raise VerseError::NoRhymesError unless word.present?
+      raise VerseError::FeetCountError unless word.present?
 
       @words << word
       @counter -= last_word.syllables_count

@@ -2,8 +2,6 @@ require "open-uri"
 
 module WebsiteReadable
 
-  include WordCleanable
-
 	def perform(link)
 		text = extract_text_from(link)
 		words = sanitize(text).split.map(&:strip)

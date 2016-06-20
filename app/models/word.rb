@@ -41,9 +41,16 @@ class Word < ActiveRecord::Base
 
 	### Scopes ###
 
+	scope :rhyming_with, -> (word) { 
+		where.not(id: word.id).where(
+			"right(phonetic_value, 2) = ?", "#{word.phonetic_value.last(2)}"
+		)
+	}
+
 	scope :valid, -> { where.not("phonetic_value = '' OR syllables_count = 0") }
 	scope :inpronounceable, -> { where("phonetic_value = '' OR syllables_count = 0") }
-
+	scope :containg_numbers, -> { where("value ~ E?", '[0-9]') }
+	
 	### Class macros ###
 
 	### Misc macros ###
@@ -51,21 +58,13 @@ class Word < ActiveRecord::Base
 	### Class methods ###
 
 	def self.get_random_rhyming_word
-	  valid.sample(100).detect{ |word| word.rhyming_words.any? }
-	end
-
-	### vv TODO: rewrite as scope vv ###
-	def self.ugly_words
-		all.select{|word| word.value =~ /\d+/}
+	  valid.sample(100).detect{ |word| Word.rhyming_with(word).any? }
 	end
 
 	### Instance methods ###
 
-	### vv TODO: rewrite as scope vv ###
 	def rhyming_words
-		Word.where(
-			"phonetic_value LIKE ?", "%#{phonetic_value.last(2)}"
-		).where.not(id: self.id)
+		rhyming_with(self)
 	end
 
 	private 
