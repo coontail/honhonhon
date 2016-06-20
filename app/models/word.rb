@@ -20,7 +20,7 @@ class Word < ActiveRecord::Base
 
 	has_many :preceding_word_relations, 
 		foreign_key: :following_word_id, 
-		class_name: "WordRelation", 
+		class_name: "WordRelation",
 		dependent: :destroy
 
 	has_many :following_word_relations, 
@@ -28,8 +28,8 @@ class Word < ActiveRecord::Base
 		class_name: "WordRelation",
 		dependent: :destroy
 
-	has_many :preceding_words, through: :preceding_word_relations
-	has_many :following_words, through: :following_word_relations
+	has_many :preceding_words, -> { valid }, through: :preceding_word_relations
+	has_many :following_words, -> { valid }, through: :following_word_relations
 	
 	### Validations ###
 
@@ -41,16 +41,27 @@ class Word < ActiveRecord::Base
 
 	### Scopes ###
 
-	scope :valid, -> { where.not(phonetic_value: '') }
+	scope :valid, -> { where.not("phonetic_value = '' OR syllables_count = 0") }
+	scope :inpronounceable, -> { where("phonetic_value = '' OR syllables_count = 0") }
 
 	### Class macros ###
 
 	### Misc macros ###
-
+	
 	### Class methods ###
+
+	def self.get_random_rhyming_word
+	  valid.sample(100).detect{ |word| word.rhyming_words.any? }
+	end
+
+	### vv TODO: rewrite as scope vv ###
+	def self.ugly_words
+		all.select{|word| word.value =~ /\d+/}
+	end
 
 	### Instance methods ###
 
+	### vv TODO: rewrite as scope vv ###
 	def rhyming_words
 		Word.where(
 			"phonetic_value LIKE ?", "%#{phonetic_value.last(2)}"
