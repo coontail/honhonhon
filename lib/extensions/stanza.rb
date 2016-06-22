@@ -3,29 +3,44 @@ class Stanza
   attr_accessor :verses
 
   def initialize(options = {})
-    @verses = []
     @feet_count = options[:feet_count] || 12
-    @rhymes_format = options[:rhymes_format] || :embraced
-
-    build_with_rhymes_format
+    @rhymes_scheme = options[:rhymes_scheme] || :enclosed
+    @verses = build_verses
   end
 
-  def build_with_rhymes_format
-    case @rhymes_format
-    when :embraced then build_with_embraced_rhymes
+  def rhymes_pattern
+    case @rhymes_scheme
+    when :enclosed then "ABBA"
+    when :alternate then "ABAB"
+    when :monorhyme then "AAAA"
+    when :prose then "ABCD"
+    when :sonnet then "ABABCDCDEFEFGG"
+    else "AABB"
+    end.split('')
+  end
+
+  def build_verses
+    rhymes_pattern.map do |rhyme|
+      rhyming_word = 
+        verses_cache_for(rhyme).last.try(:rhyming_word).try(:rhyming_words).try(:sample)
+      
+      Verse.new(rhyming_word: rhyming_word, feet_count: @feet_count).tap do |verse|
+        verses_cache_for(rhyme) << verse
+      end
     end
+
   rescue VerseError::FeetCountError
     retry
+  ensure
+    purge_verses_cache
   end
 
-  def build_with_embraced_rhymes
-    verse_a = Verse.new(feet_count: @feet_count)
-    verse_b = Verse.new(base_word: verse_a.last_word.rhyming_words.sample, feet_count: @feet_count)
+  def verses_cache_for(rhyme)
+    ((@verses_cache ||= {})[rhyme] ||= []) 
+  end
 
-    verse_c = Verse.new(feet_count: @feet_count)
-    verse_d = Verse.new(base_word: verse_c.last_word.rhyming_words.sample, feet_count: @feet_count)
-
-    @verses = [verse_a, verse_c, verse_d, verse_b]
+  def purge_verses_cache
+    @verses_cache = nil
   end
 
   def to_s

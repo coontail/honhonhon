@@ -1,13 +1,13 @@
 class Verse 
 
-  attr_reader :base_word
+  attr_reader :rhyming_word
   attr_reader :words
 
   def initialize(options = {})
     @feet_count = options[:feet_count] || 12
-    @base_word = options[:base_word] || Word.get_random_rhyming_word
-    @words = [@base_word]
-    @counter = @feet_count - @base_word.syllables_count
+    @rhyming_word = options[:rhyming_word] || Word.get_random_rhyming_word
+    @words = [@rhyming_word]
+    @counter = @feet_count - @rhyming_word.syllables_count
 
     build
   end

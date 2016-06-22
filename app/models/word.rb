@@ -51,20 +51,6 @@ class Word < ActiveRecord::Base
 	scope :inpronounceable, -> { where("phonetic_value = '' OR syllables_count = 0") }
 	scope :containing_numbers, -> { where("value ~ E?", '[0-9]') }
 
-	# scope :rhyming, -> {
-	# 	select("
-	# 	  max(words.id) as id,
-	# 	  max(value) as value,
-	# 	  max(phonetic_value) as phonetic_value,
-	# 	  max(syllables_count) as syllables_count,
-	# 	  COUNT(right(phonetic_value, 3))
-	# 	").group(
-	# 	  "right(phonetic_value, 3)"
-	# 	).having(
-	# 	  "COUNT(right(phonetic_value, 3)) > 1"
-	# 	)
-	# }
-
 	### Class methods ###
 
 	def self.get_random_rhyming_word
@@ -75,7 +61,7 @@ class Word < ActiveRecord::Base
 
 	### Instance methods ###
 
-	# To be replaced with :rhyming scope asap
+	# To be replaced with a :rhyming scope asap
 	def rhyming_words
 		Word.where.not(id: id).where(
 			"right(phonetic_value, 2) = ?", "#{phonetic_value.last(2)}"
