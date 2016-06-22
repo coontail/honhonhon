@@ -8,8 +8,6 @@ class Poem
 
   def build_short_poem
     Stanza.new(feet_count: 6, rhymes_format: :embraced)
-  rescue VerseError::FeetCountError
-    retry
   end
 
   def to_s

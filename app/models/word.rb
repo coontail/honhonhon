@@ -12,18 +12,24 @@
 
 class Word < ActiveRecord::Base
 
-	### Model settings ###
-
 	### Modules ###
 
+	### Model settings ###
+
+	### Class macros ###
+
+	### Misc macros ###
+	
 	### Associations ###
 
-	has_many :preceding_word_relations, 
+	has_many :preceding_word_relations,
+		-> { weighted },
 		foreign_key: :following_word_id, 
 		class_name: "WordRelation",
 		dependent: :destroy
 
 	has_many :following_word_relations, 
+		-> { weighted },
 		foreign_key: :preceding_word_id, 
 		class_name: "WordRelation",
 		dependent: :destroy
@@ -41,30 +47,39 @@ class Word < ActiveRecord::Base
 
 	### Scopes ###
 
-	scope :rhyming_with, -> (word) { 
-		where.not(id: word.id).where(
-			"right(phonetic_value, 2) = ?", "#{word.phonetic_value.last(2)}"
-		)
-	}
-
 	scope :valid, -> { where.not("phonetic_value = '' OR syllables_count = 0") }
 	scope :inpronounceable, -> { where("phonetic_value = '' OR syllables_count = 0") }
-	scope :containg_numbers, -> { where("value ~ E?", '[0-9]') }
-	
-	### Class macros ###
+	scope :containing_numbers, -> { where("value ~ E?", '[0-9]') }
 
-	### Misc macros ###
-	
+	# scope :rhyming, -> {
+	# 	select("
+	# 	  max(words.id) as id,
+	# 	  max(value) as value,
+	# 	  max(phonetic_value) as phonetic_value,
+	# 	  max(syllables_count) as syllables_count,
+	# 	  COUNT(right(phonetic_value, 3))
+	# 	").group(
+	# 	  "right(phonetic_value, 3)"
+	# 	).having(
+	# 	  "COUNT(right(phonetic_value, 3)) > 1"
+	# 	)
+	# }
+
 	### Class methods ###
 
 	def self.get_random_rhyming_word
-	  valid.sample(100).detect{ |word| Word.rhyming_with(word).any? }
+	  valid.sample(100).detect do |word| 
+	  	word.rhyming_words.any?
+	  end
 	end
 
 	### Instance methods ###
 
+	# To be replaced with :rhyming scope asap
 	def rhyming_words
-		rhyming_with(self)
+		Word.where.not(id: id).where(
+			"right(phonetic_value, 2) = ?", "#{phonetic_value.last(2)}"
+		)
 	end
 
 	private 

@@ -14,6 +14,8 @@ class Stanza
     case @rhymes_format
     when :embraced then build_with_embraced_rhymes
     end
+  rescue VerseError::FeetCountError
+    retry
   end
 
   def build_with_embraced_rhymes

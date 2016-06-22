@@ -1,6 +1,6 @@
 GIT
   remote: git@github.com:Galaad-Gauthier/VoxBi.git
-  revision: b371b7ec6572d6a46cdc39b4b8c7b3ae9b224b65
+  revision: ed65bba235cb7ee65b52d505e8aadc1186d453b6
   specs:
     voxbi (0.3.2)
       json

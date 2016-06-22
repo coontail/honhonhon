@@ -12,6 +12,8 @@ module WebsiteReadable
 
 			create_word_relation(word, following_word)
 		end
+
+    WordsCleanJob.perform_now
 	end
   
 	def create_word_relation(word, following_word)
@@ -34,7 +36,7 @@ module WebsiteReadable
   end
   
   def sanitize(text)
-    CGI.unescapeHTML(text).gsub(/[^\-\'\s\p{Alnum}]/,' ').squeeze(' ')
+    CGI.unescapeHTML(text).gsub(/[^\-\'\s\p{Alnum}]/,' ').squeeze(' ').downcase
   end
 
 end
