@@ -13,7 +13,10 @@ class WikifurPoemsTwitterUpdateJob < ActiveJob::Base
   end
 
   def message
-    Poem.new(format: :short)
+    Stanza.new(
+      rhymes_scheme: [:enclosed, :alternate].sample,
+      feet_count: 6
+    )
   end
 
 end
