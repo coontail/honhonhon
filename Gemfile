@@ -14,6 +14,9 @@ gem 'voxbi', git: "git@github.com:Galaad-Gauthier/VoxBi.git"
 # Twitter API client
 gem 'twitter'
 
+# Cron jobs
+gem 'whenever'
+
 group :development do
   gem 'byebug'
   gem 'web-console', '~> 2.0'

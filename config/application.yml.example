@@ -1,0 +1,9 @@
+# # Twitter configuration
+
+# TWITTER_API_KEY: ""
+# TWITTER_API_SECRET: ""
+
+# # Twitter App configuration
+
+# WIKIFUR_POEMS_ACCESS_TOKEN_KEY: ""
+# WIKIFUR_POEMS_ACCESS_TOKEN_SECRET: ""

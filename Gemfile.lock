@@ -54,6 +54,7 @@ GEM
     buftok (0.2.0)
     builder (3.2.2)
     byebug (9.0.5)
+    chronic (0.10.2)
     concurrent-ruby (1.0.2)
     debug_inspector (0.0.2)
     domain_name (0.5.20160615)
@@ -158,6 +159,8 @@ GEM
       binding_of_caller (>= 0.7.2)
       railties (>= 4.0)
       sprockets-rails (>= 2.0, < 4.0)
+    whenever (0.9.7)
+      chronic (>= 0.6.3)
 
 PLATFORMS
   ruby
@@ -173,6 +176,7 @@ DEPENDENCIES
   twitter
   voxbi!
   web-console (~> 2.0)
+  whenever
 
 BUNDLED WITH
    1.12.5
