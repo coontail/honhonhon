@@ -4,7 +4,7 @@ require 'rails/all'
 
 Bundler.require(*Rails.groups)
 
-module Drunkmoliere
+module HonHonHon
 
   class Application < Rails::Application
 
