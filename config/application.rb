@@ -11,7 +11,7 @@ module HonHonHon
     config.active_record.raise_in_transactional_callbacks = true
 
     config.autoload_paths += %W(
-      #{config.root}/app/jobs/*/*
+      #{config.root}/app/jobs/concerns
       #{config.root}/lib/extensions
       #{config.root}/lib/errors
     )
