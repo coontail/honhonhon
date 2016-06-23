@@ -2,10 +2,10 @@ class CreateWords < ActiveRecord::Migration
   
   def change
     create_table :words do |t|
-  		t.string :value
-  		t.string :phonetic_value
-  		t.integer :syllables_count
-  		t.timestamps
+      t.string :value
+      t.string :phonetic_value
+      t.integer :syllables_count
+      t.timestamps
     end
 
     add_index :words, :value

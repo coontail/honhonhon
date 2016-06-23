@@ -15,7 +15,7 @@ gem 'voxbi', git: "git@github.com:Galaad-Gauthier/VoxBi.git"
 gem 'twitter'
 
 group :development do
-	gem 'byebug'
+  gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
   gem 'annotate'
