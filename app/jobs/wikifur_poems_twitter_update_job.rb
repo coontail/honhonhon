@@ -13,10 +13,8 @@ class WikifurPoemsTwitterUpdateJob < ActiveJob::Base
   end
 
   def message
-    Stanza.new(
-      rhymes_scheme: [:enclosed, :alternate].sample,
-      feet_count: 6
-    )
+    rhymes_scheme = [:enclosed, :alternate].sample
+    Stanza.new(rhymes_scheme: rhymes_scheme, feet_count: 6)
   end
 
 end
