@@ -1,8 +1,4 @@
-class ReadWikifurJob < ActiveJob::Base
-
-  include WebsiteReadable
-
-  queue_as :default
+class ReadWikifurJob < ReadWebsiteJob
 
   def extract_text_from(link)
     parse(link).css("p").try(:text).to_s

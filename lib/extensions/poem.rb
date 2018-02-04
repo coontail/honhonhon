@@ -21,7 +21,7 @@ class Poem
   end
 
   def build_long_poem
-    2.times.map do 
+    2.times.map do
       Stanza.new(feet_count: 12, rhymes_scheme: :enclosed)
     end.flatten
   end

@@ -13,15 +13,15 @@
 class WordRelation < ActiveRecord::Base
 
   ### Modules ###
-  
+
   ### Model settings ###
 
   self.table_name = "words_relations"
-  
+
   ### Class macros ###
 
   ### Misc macros ###
-  
+
   ### Associations ###
 
 	belongs_to :preceding_word, class_name: "Word"
@@ -31,7 +31,7 @@ class WordRelation < ActiveRecord::Base
 
   ### Scopes ###
 
-  scope :weighted, -> { order("(RANDOM()*occurence_counter)").limit(1) }
+  scope :weighted, -> { order("(RANDOM()*occurence_counter) desc").limit(1) }
 
   ### Class methods ###
 

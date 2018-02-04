@@ -1,3 +1,3 @@
 every 1.minutes do
-  rake "twitter:update_wikifur_poems"
+  rake "twitter:tweet_poem"
 end
