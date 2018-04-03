@@ -19,24 +19,24 @@ class Word < ActiveRecord::Base
 	### Class macros ###
 
 	### Misc macros ###
-	
+
 	### Associations ###
 
 	has_many :preceding_word_relations,
 		-> { weighted },
-		foreign_key: :following_word_id, 
+		foreign_key: :following_word_id,
 		class_name: "WordRelation",
 		dependent: :destroy
 
-	has_many :following_word_relations, 
+	has_many :following_word_relations,
 		-> { weighted },
-		foreign_key: :preceding_word_id, 
+		foreign_key: :preceding_word_id,
 		class_name: "WordRelation",
 		dependent: :destroy
 
 	has_many :preceding_words, -> { valid }, through: :preceding_word_relations
 	has_many :following_words, -> { valid }, through: :following_word_relations
-	
+
 	### Validations ###
 
 	validates :value, presence: true, uniqueness: true
@@ -54,7 +54,7 @@ class Word < ActiveRecord::Base
 	### Class methods ###
 
 	def self.get_random_rhyming_word
-	  valid.sample(100).detect do |word| 
+	  valid.sample(100).detect do |word|
 	  	word.rhyming_words.any?
 	  end
 	end
@@ -68,10 +68,10 @@ class Word < ActiveRecord::Base
 		)
 	end
 
-	private 
+	private
 
 	def set_phonetic_value_and_syllables_count
-		syllables = Voxbi.get_syllables(value)
+		syllables = Voxbi.new(value).get_syllables
 
 		self.phonetic_value = syllables.join
 		self.syllables_count = syllables.count

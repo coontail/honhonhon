@@ -21,22 +21,23 @@ class Stanza
 
   def build_verses
     rhymes_pattern.map do |rhyme|
-      rhyming_word = 
+      rhyming_word =
         verses_cache_for(rhyme).last.try(:rhyming_word).try(:rhyming_words).try(:sample)
-      
+
       Verse.new(rhyming_word: rhyming_word, feet_count: @feet_count).tap do |verse|
         verses_cache_for(rhyme) << verse
       end
     end
 
   rescue VerseError::FeetCountError
+    Rails.logger.debug "FeetCountError"
     retry
   ensure
     purge_verses_cache
   end
 
   def verses_cache_for(rhyme)
-    ((@verses_cache ||= {})[rhyme] ||= []) 
+    ((@verses_cache ||= {})[rhyme] ||= [])
   end
 
   def purge_verses_cache

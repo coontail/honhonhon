@@ -9,7 +9,7 @@ gem 'figaro'
 
 # App requirements
 gem 'nokogiri'
-gem 'voxbi', git: "git@github.com:Galaad-Gauthier/VoxBi.git"
+gem 'voxbi', "1.0.6"
 
 # Twitter API client
 gem 'twitter'
