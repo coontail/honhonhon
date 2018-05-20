@@ -1,6 +1,7 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
+require File.expand_path('../../lib/assets_list', __FILE__)
 
 Bundler.require(*Rails.groups)
 
@@ -16,6 +17,7 @@ module HonHonHon
       #{config.root}/lib/errors
     )
 
+    config.assets.precompile += CSS_ASSETS_LIST
   end
 
 end

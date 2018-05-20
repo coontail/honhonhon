@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 # General
 gem 'rails', '4.2.6'
 gem 'pg'
+gem 'puma', '~> 3.0'
 
 # Env variables and secrets
 gem 'figaro'
@@ -16,6 +17,9 @@ gem 'twitter'
 
 # Cron jobs
 gem 'whenever'
+
+#html
+gem 'haml'
 
 group :development do
   gem 'byebug'
