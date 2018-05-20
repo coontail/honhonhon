@@ -30,7 +30,6 @@ class Stanza
     end
 
   rescue VerseError::FeetCountError
-    Rails.logger.debug "FeetCountError"
     retry
   ensure
     purge_verses_cache
