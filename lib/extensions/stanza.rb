@@ -21,14 +21,17 @@ class Stanza
 
   def build_verses
     rhymes_pattern.map do |rhyme|
-      rhyming_word =
-        verses_cache_for(rhyme).last.try(:rhyming_word).try(:rhyming_words).try(:sample)
+      begin
+        rhyming_word =
+          verses_cache_for(rhyme).last.try(:rhyming_word).try(:rhyming_words).try(:sample)
 
-      Verse.new(rhyming_word: rhyming_word, feet_count: @feet_count).tap do |verse|
-        verses_cache_for(rhyme) << verse
+        Verse.new(rhyming_word: rhyming_word, feet_count: @feet_count).tap do |verse|
+          verses_cache_for(rhyme) << verse
+        end
+      rescue VerseError::FeetCountError
+        retry
       end
     end
-
   rescue VerseError::FeetCountError
     retry
   ensure

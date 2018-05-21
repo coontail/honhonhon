@@ -1,7 +1,6 @@
-class Verse 
+class Verse
 
-  attr_reader :rhyming_word
-  attr_reader :words
+  attr_reader :rhyming_word, :words
 
   def initialize(options = {})
     @feet_count = options[:feet_count] || 12
@@ -15,7 +14,7 @@ class Verse
   def build
     until @counter == 0 do
       word = last_word.preceding_words.where("syllables_count <= ?", @counter).sample
-      
+
       raise VerseError::FeetCountError unless word.present?
 
       @words << word
@@ -32,5 +31,5 @@ class Verse
   def to_s
     @words.flatten.map(&:value).join(" ").capitalize
   end
-  
+
 end
