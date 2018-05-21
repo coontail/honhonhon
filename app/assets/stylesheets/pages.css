@@ -62,7 +62,7 @@ h2:after {
 
 #poem p:first-line {
   font-variant: small-caps;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
 }
 
 #poem p:last-child {
