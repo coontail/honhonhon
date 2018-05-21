@@ -43,6 +43,7 @@ h2 {
 p {
   line-height: 1.5;
   margin-bottom: 15px;
+  width: 450px;
 }
 
 h2:before {
