@@ -20,6 +20,8 @@ class Stanza
   end
 
   def build_verses
+    @retry_count = 0
+
     rhymes_pattern.map do |rhyme|
       begin
         rhyming_word =
@@ -29,7 +31,8 @@ class Stanza
           verses_cache_for(rhyme) << verse
         end
       rescue VerseError::FeetCountError
-        retry
+        @retry_count += 1
+        @retry_count > 10 ? @retry_count = 0 : retry
       end
     end
   rescue VerseError::FeetCountError
