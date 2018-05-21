@@ -21,6 +21,9 @@ gem 'whenever'
 #html
 gem 'haml'
 
+#exposers
+gem 'decent_exposure'
+
 group :development do
   gem 'byebug'
   gem 'web-console', '~> 2.0'

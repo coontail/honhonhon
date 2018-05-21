@@ -54,7 +54,9 @@ class Word < ActiveRecord::Base
 	### Class methods ###
 
 	def self.get_random_rhyming_word
-	  valid.sample(100).detect do |word|
+		sample = valid.order('RANDOM()').limit(100)
+
+	  sample.detect do |word|
 	  	word.rhyming_words.any?
 	  end
 	end

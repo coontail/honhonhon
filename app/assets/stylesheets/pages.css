@@ -69,3 +69,12 @@ h2:after {
   margin-bottom: 30px;
   padding-bottom: 30px;
 }
+
+#info {
+  font-size: 11px;
+  text-align: center;
+  color: #888;
+  letter-spacing: 1.5px;
+  margin-top: 45px;
+
+}

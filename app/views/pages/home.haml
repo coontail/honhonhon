@@ -1,5 +1,7 @@
 #poem
-  %h1= @title
+  %h1= content.title.capitalize
   %h2= author_and_date
 
-  = simple_format @poem
+  = simple_format content.body
+
+  = render 'info'
